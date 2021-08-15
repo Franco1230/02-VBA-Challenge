@@ -145,7 +145,7 @@ Columns("A:D").Select
    
 Columns("A:E").EntireColumn.AutoFit
 
-Range("C2:C" & Summary_Table_Row).Select
+Range("B2:B" & Summary_Table_Row).Select
     
 Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
         Formula1:="=0"

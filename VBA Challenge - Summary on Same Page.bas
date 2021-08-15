@@ -147,7 +147,7 @@ Sub VBAchallenge():
                
             Columns("I:L").EntireColumn.AutoFit
             
-            Range("K2:K" & Summary_Table_Row).Select
+            Range("J2:J" & Summary_Table_Row).Select
                 
             'Conditional formatting Green for positive figure
             Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
