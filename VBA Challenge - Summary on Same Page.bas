@@ -149,43 +149,27 @@ Sub VBAchallenge():
             
             Range("J2:J" & Summary_Table_Row).Select
                 
-            'Conditional formatting Green for positive figure
-            Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
-                    Formula1:="=0"
-                    
-            Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
-                
-            With Selection.FormatConditions(1).Interior
-                    
-                .PatternColorIndex = xlAutomatic
-                    
-                .ColorIndex = 4
-                    
-                .TintAndShade = 0
-                
+            'Conditional formatting Green for positive figures and Red for negative figures
+          
+            Selection.FormatConditions.Delete
+    
+            Set condition1 = Range("J2:J" & Summary_Table_Row).FormatConditions.Add(xlCellValue, xlGreater, "=0")
+
+            Set condition2 = Range("J2:J" & Summary_Table_Row).FormatConditions.Add(xlCellValue, xlLess, "=0")
+
+            With condition1
+
+                 .Interior.ColorIndex = 4
+
             End With
-                
-            Selection.FormatConditions(1).StopIfTrue = False
-            
-            'Conditional formatting Red for negative figure
-            Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlLess, _
-                    Formula1:="=0"
-                
-            Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
-                
-            With Selection.FormatConditions(1).Interior
-                    
-                .PatternColorIndex = xlAutomatic
-                    
-                .ColorIndex = 3
-                    
-                .TintAndShade = 0
-                
+
+            With condition2
+
+                 .Interior.ColorIndex = 3
+
             End With
             
-            Selection.FormatConditions(1).StopIfTrue = False
-            
-            'Assign value to cells
+            'Assign values to cells
             Range("O2").Value = "Greatest % Increase"
             
             Range("O3").Value = "Greatest % Decrease"
@@ -230,28 +214,49 @@ Sub VBAchallenge():
             Range("Q4").NumberFormat = "#,##0"
             
             Range("P1:Q1,O2:O4").Select
-            Range("P1:Q1,O2:O4").Activate
+            
             Selection.Font.Bold = True
+            
             Range("O1:Q4").Select
+            
             Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+            
             Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+            
             With Selection.Borders(xlEdgeLeft)
+                
                 .Weight = xlThin
+            
             End With
+            
             With Selection.Borders(xlEdgeTop)
+                
                 .Weight = xlThin
+            
             End With
+            
             With Selection.Borders(xlEdgeBottom)
+                
                 .Weight = xlThin
+            
             End With
+            
             With Selection.Borders(xlEdgeRight)
+                
                 .Weight = xlThin
+            
             End With
+            
             With Selection.Borders(xlInsideVertical)
+                
                 .Weight = xlThin
+            
             End With
+            
             With Selection.Borders(xlInsideHorizontal)
+                
                 .Weight = xlThin
+            
             End With
         
             Columns("O:Q").EntireColumn.AutoFit

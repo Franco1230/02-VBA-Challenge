@@ -146,40 +146,24 @@ Columns("A:D").Select
 Columns("A:E").EntireColumn.AutoFit
 
 Range("B2:B" & Summary_Table_Row).Select
+
+Selection.FormatConditions.Delete
     
-Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
-        Formula1:="=0"
-        
-Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
-    
-With Selection.FormatConditions(1).Interior
-        
-.PatternColorIndex = xlAutomatic
-        
-.ColorIndex = 4
-        
-.TintAndShade = 0
-    
+Set condition1 = Range("B2:B" & Summary_Table_Row).FormatConditions.Add(xlCellValue, xlGreater, "=0")
+
+Set condition2 = Range("B2:B" & Summary_Table_Row).FormatConditions.Add(xlCellValue, xlLess, "=0")
+
+With condition1
+
+     .Interior.ColorIndex = 4
+
 End With
-    
-Selection.FormatConditions(1).StopIfTrue = False
-    
-Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlLess, _
-        Formula1:="=0"
-    
-Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
-    
-With Selection.FormatConditions(1).Interior
-        
-.PatternColorIndex = xlAutomatic
-        
-.ColorIndex = 3
-        
-.TintAndShade = 0
-    
+
+With condition2
+
+     .Interior.ColorIndex = 3
+
 End With
-    
-Selection.FormatConditions(1).StopIfTrue = False
 
 Range("G2").Value = "Greatest % Increase"
 
@@ -192,7 +176,6 @@ Range("H1").Value = Range("A1").Value
 Range("I1").Value = "Value"
 
 Range("J1").Value = "From Work Sheet"
-
 
 Range("I2").Value = Application.WorksheetFunction.Max(Range("C:C"))
 
@@ -228,30 +211,51 @@ Range("J4").Value = Cells(MaxRow, 5)
     
 Range("I4").NumberFormat = "#,##0"
 
-Range("H1:J1,G2:G4").Select
-    Range("H1:J1,G2:G4").Activate
-    Selection.Font.Bold = True
-    Range("G1:J4").Select
-    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
-    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
-    With Selection.Borders(xlEdgeLeft)
-        .Weight = xlThin
-    End With
-    With Selection.Borders(xlEdgeTop)
-        .Weight = xlThin
-    End With
-    With Selection.Borders(xlEdgeBottom)
-        .Weight = xlThin
-    End With
-    With Selection.Borders(xlEdgeRight)
-        .Weight = xlThin
-    End With
-    With Selection.Borders(xlInsideVertical)
-        .Weight = xlThin
-    End With
-    With Selection.Borders(xlInsideHorizontal)
-        .Weight = xlThin
-    End With
+Range("H1:J1,G2:G4").Activate
+    
+Selection.Font.Bold = True
+
+Range("G1:J4").Select
+
+Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    
+Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    
+With Selection.Borders(xlEdgeLeft)
+        
+     .Weight = xlThin
+    
+End With
+    
+With Selection.Borders(xlEdgeRight)
+        
+     .Weight = xlThin
+    
+End With
+
+With Selection.Borders(xlEdgeTop)
+        
+     .Weight = xlThin
+    
+End With
+    
+With Selection.Borders(xlEdgeBottom)
+        
+     .Weight = xlThin
+   
+End With
+    
+With Selection.Borders(xlInsideVertical)
+        
+     .Weight = xlThin
+    
+End With
+    
+With Selection.Borders(xlInsideHorizontal)
+        
+     .Weight = xlThin
+    
+End With
 
 Columns("G:J").EntireColumn.AutoFit
 
